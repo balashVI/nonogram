@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/qml">
         <file alias="main.qml">qml/main.qml</file>
-        <file alias="Header.qml">qml/Header.qml</file>
+        <file alias="InformPanel.qml">qml/InformPanel.qml</file>
     </qresource>
 </RCC>

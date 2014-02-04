@@ -9,4 +9,6 @@ SOURCES += \
 RESOURCES += \
     resources.qrc
 
-OTHER_FILES += qml/Header.qml qml/main.qml
+OTHER_FILES += qml/main.qml \
+    qml/InformPanel.qml \
+    qml/Button.qml

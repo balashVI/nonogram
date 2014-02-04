@@ -2,24 +2,31 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 
-import "qrc:/qml/"
+import "../qml"
 
 Window {
     id: main
     width: 800
     height: 500
 
-    ColumnLayout{
+    Flipable{
         anchors.fill: parent
-        spacing: 0
+        anchors.margins: 10
 
-        Header{
-        }
+        front: RowLayout{
+            anchors.fill: parent
 
-        Rectangle{
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            color: "blue"
+            InformPanel{
+                Layout.fillHeight: true
+                width: 250
+
+                onFullScreen: main.showFullScreen()
+            }
+
+            Rectangle{
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
     }
 }

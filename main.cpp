@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl("qrc:/qml/main.qml"));
+    engine.load(QUrl("../nonogram/qml/main.qml"));
     QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().value(0));
     window->show();
 
