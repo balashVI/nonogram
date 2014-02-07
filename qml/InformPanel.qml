@@ -1,10 +1,11 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import QtQuick.Layouts 1.1
 
 import "../qml"
 
 Item{
     id: main
+    state: "normalMode"
 
     property int numberOfCrosswords: 0
     property int numberOfUnsolvedСrosswords: 0
@@ -12,9 +13,6 @@ Item{
     property int numberOfStartedСrosswords: 0
 
     property bool isFullScreen: false
-
-    signal fullScreen
-    signal normalMode
 
     GridLayout{
         width: parent.width
@@ -61,13 +59,20 @@ Item{
         }
 
         Button{
+            id: fullScreenButton
             Layout.fillWidth: true
             Layout.columnSpan: 2
             height: 30
 
-            text: qsTr("На весь екран")
-
-            onClicked: main.fullScreen()
+            onClicked: {
+                if(isFullScreen){
+                    main.state = "normalMode"
+                    isFullScreen = false
+                } else {
+                    main.state = "fullScreen"
+                    isFullScreen = true
+                }
+            }
         }
 
         Button{
@@ -78,4 +83,21 @@ Item{
             text: qsTr("Налаштування")
         }
     }
+
+    states: [
+        State{
+            name: "normalMode"
+            PropertyChanges {
+                target: fullScreenButton
+                text: qsTr("Повноекранний режим")
+            }
+        },
+        State{
+            name: "fullScreen"
+            PropertyChanges {
+                target: fullScreenButton
+                text: qsTr("Нормальний режим")
+            }
+        }
+    ]
 }

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 
 Item {
     id: main
@@ -26,8 +26,8 @@ Item {
                 if(pressed)
                     main.state = "pressed"
                 else {
-                    main.state = "normal"
                     main.clicked()
+                    main.state = "normal"
                 }
             }
         }
