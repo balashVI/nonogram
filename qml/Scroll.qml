@@ -81,7 +81,7 @@ Item{
             NumberAnimation{
                 target: main
                 property: "opacity"
-                duration: 500
+                duration: 1000
             }
         }
     ]

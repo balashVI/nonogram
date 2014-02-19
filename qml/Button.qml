@@ -36,6 +36,7 @@ Item {
     Text{
         id: txt
         anchors.centerIn: parent
+        renderType: Text.NativeRendering
         text: parent.text
     }
 

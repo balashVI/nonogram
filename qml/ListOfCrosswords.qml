@@ -11,8 +11,8 @@ Item{
     property int numberOfSolvedСrosswords: 0
     property int numberOfStartedСrosswords: 0
 
-    property int currentCrossword: 0
-    property bool isCanClear: false
+    property int currentCrossword: -1
+    property int currentCrosswordStatus: -1
 
     Column{
         anchors.fill: parent
@@ -40,7 +40,6 @@ Item{
 
             clip: true
             spacing: 1
-            focus: true
             currentIndex: - 1
 
             model: listModel
@@ -144,6 +143,6 @@ Item{
 
     function setCurrentCrossword(id, status){
         currentCrossword = id
-        isCanClear = status ? true : false
+        currentCrosswordStatus = status
     }
 }

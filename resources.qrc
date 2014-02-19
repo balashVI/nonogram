@@ -2,5 +2,8 @@
     <qresource prefix="/qml">
         <file alias="main.qml">qml/main.qml</file>
         <file alias="InformPanel.qml">qml/InformPanel.qml</file>
+        <file alias="Button.qml">qml/Button.qml</file>
+        <file alias="ListOfCrosswords.qml">qml/ListOfCrosswords.qml</file>
+        <file alias="Scroll.qml">qml/Scroll.qml</file>
     </qresource>
 </RCC>
