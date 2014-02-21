@@ -43,7 +43,7 @@ Item{
         x: isHorizontal ? obj.visibleArea.xPosition * parent.width : 0
 
         color: "darkgray"
-        opacity: 0.8
+        opacity: 0.9
 
         radius: thickness/2
     }

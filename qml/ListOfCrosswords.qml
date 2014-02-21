@@ -1,8 +1,6 @@
 import QtQuick 2.2
 import QtQuick.LocalStorage 2.0
 
-import "./"
-
 Item{
     id: main
 

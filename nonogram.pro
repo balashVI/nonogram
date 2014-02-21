@@ -12,9 +12,9 @@ RESOURCES += \
 OTHER_FILES += qml/main.qml \
     qml/InformPanel.qml \
     qml/Button.qml \
-    js/functions.js \
     qml/ListOfCrosswords.qml \
     qml/Scroll.qml \
     qml/Back.qml \
     qml/CrosswordHeader.qml \
-    qml/CrosswordBody.qml
+    qml/CrosswordBody.qml \
+    qml/Slider.qml

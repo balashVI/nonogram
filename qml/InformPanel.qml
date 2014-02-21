@@ -2,8 +2,6 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.LocalStorage 2.0
 
-import "../qml"
-
 Item{
     id: main
     state: "normalMode"
@@ -19,6 +17,8 @@ Item{
 
     property bool isFullScreen: false
 
+    signal buttonPlay
+
     Column{
         spacing: 8
         width: parent.width
@@ -33,6 +33,7 @@ Item{
                     qsTr("Продовжити гру")
                 else qsTr("Переглянути розв'язок")
             }
+            onClicked: buttonPlay()
         }
         Button{
             width: parent.width
