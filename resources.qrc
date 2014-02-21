@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/qml">
         <file alias="main.qml">qml/main.qml</file>
-        <file alias="InformPanel.qml">qml/InformPanel.qml</file>
         <file alias="Button.qml">qml/Button.qml</file>
         <file alias="ListOfCrosswords.qml">qml/ListOfCrosswords.qml</file>
         <file alias="Scroll.qml">qml/Scroll.qml</file>
@@ -9,5 +8,6 @@
         <file alias="CrosswordBody.qml">qml/CrosswordBody.qml</file>
         <file alias="CrosswordHeader.qml">qml/CrosswordHeader.qml</file>
         <file alias="Slider.qml">qml/Slider.qml</file>
+        <file alias="Front.qml">qml/Front.qml</file>
     </qresource>
 </RCC>

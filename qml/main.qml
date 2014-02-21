@@ -6,7 +6,7 @@ import QtQuick.LocalStorage 2.0
 import "qrc:/qml/"
 
 Window {
-    id: main
+    id: mainWindow
     width: 1000
     height: 700
     minimumWidth: 1000
@@ -31,46 +31,10 @@ Window {
             angle: 0
         }
 
-        front: Item {
+        front: Front {
             anchors.fill: parent
             visible: parent.state == "front"
-            RowLayout{
-                anchors.fill: parent
-
-                InformPanel{
-                    Layout.fillHeight: true
-                    width: 250
-
-                    onStateChanged: {
-                        if(state == "normalMode"){
-                            if(isMaximize)
-                                main.showMaximized()
-                            else
-                                main.showNormal()
-                        }else{
-                            main.isMaximize = (main.visibility == Window.Maximized)
-                            main.showFullScreen()
-                        }
-                    }
-
-                    numberOfCrosswords: listOfCrosswords.numberOfCrosswords
-                    numberOfSolvedСrosswords: listOfCrosswords.numberOfSolvedСrosswords
-                    numberOfStartedСrosswords: listOfCrosswords.numberOfStartedСrosswords
-                    numberOfUnsolvedСrosswords: listOfCrosswords.numberOfUnsolvedСrosswords
-
-                    currentCrossword: listOfCrosswords.currentCrossword
-                    currentCrosswordStatus: listOfCrosswords.currentCrosswordStatus
-
-                    onButtonPlay: flipable.state = "back"
-                }
-
-                ListOfCrosswords{
-                    id: listOfCrosswords
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                }
-            }
+            onButtonPlay: flipable.state = "back"
         }
 
         back: Back{
