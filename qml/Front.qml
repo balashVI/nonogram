@@ -134,4 +134,8 @@ Item {
             Layout.fillHeight: true
         }
     }
+
+    function updateListOfCrosswords(){
+        listOfCrosswords.updateContent()
+    }
 }

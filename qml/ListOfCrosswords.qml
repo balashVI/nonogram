@@ -101,16 +101,6 @@ Item{
                     y: 55
                     text: qsTr("Час, потрачений на розв'язання: ") + model.time
                 }
-                Text{
-                    anchors{
-                        right: parent.right
-                        verticalCenter: parent.verticalCenter
-                        margins: 10
-                    }
-                    font.pixelSize: parent.height - 30
-                    color: "gray"
-                    text: model.progress + "%"
-                }
             }
         }
     }
@@ -123,15 +113,15 @@ Item{
             Qt.quit()
         }
         db.transaction(function (tx){
-            var res = tx.executeSql("SELECT crossword_id, width, height, progress, time, status FROM crosswords" +
+            var res = tx.executeSql("SELECT crossword_id, width, height, time, status FROM crosswords" +
                                     " WHERE status = 1")
             numberOfStartedСrosswords = res.rows.length
             for(var i=0;i<res.rows.length;i++) listModel.append(res.rows.item(i))
-            res = tx.executeSql("SELECT crossword_id, width, height, progress, time, status FROM crosswords" +
+            res = tx.executeSql("SELECT crossword_id, width, height, time, status FROM crosswords" +
                                 " WHERE status = 0")
             numberOfUnsolvedСrosswords = res.rows.length
             for(var i=0;i<res.rows.length;i++) listModel.append(res.rows.item(i))
-            res = tx.executeSql("SELECT crossword_id, width, height, progress, time, status FROM crosswords" +
+            res = tx.executeSql("SELECT crossword_id, width, height, time, status FROM crosswords" +
                                 " WHERE status = 2")
             numberOfSolvedСrosswords = res.rows.length
             for(var i=0;i<res.rows.length;i++) listModel.append(res.rows.item(i))

@@ -13,7 +13,7 @@ Window {
     minimumHeight: 700
     title: "Nonogram"
 
-    property var db
+    property int dbVersion
     property bool isMaximize: false
 
     Flipable{
@@ -32,6 +32,7 @@ Window {
         }
 
         front: Front {
+            id: frontElement
             anchors.fill: parent
             visible: parent.state == "front"
             onButtonPlay: flipable.state = "back"
@@ -64,12 +65,13 @@ Window {
     }
 
     Component.onCompleted: {
-        db = LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram Data Base", 10000000)
+        var db = LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram Data Base", 10000000)
         if(!db) {
             console.error("Can not open DB!")
             Qt.quit()
         }
 
+        //Створення таблиць в локальній БД якщо вони не існують, отримання поточної версії БД
         db.transaction(
                     function(tx){
                         tx.executeSql("CREATE TABLE IF NOT EXISTS settings(property TEXT, value TEXT)")
@@ -79,9 +81,53 @@ Window {
                             tx.executeSql("INSERT INTO settings VALUES (\"db_version\", \"0\")")
                         }
                         tx.executeSql("CREATE TABLE IF NOT EXISTS crosswords(crossword_id INT NOT NULL PRIMARY KEY, "+
-                                      "width INT, height INT, crossword TEXT, user_crossword TEXT, progress FLOAT, "+
+                                      "width INT, height INT, crossword TEXT, user_crossword TEXT, "+
                                       "time INT, status INT)")
+                        res = tx.executeSql("SELECT value FROM settings WHERE property=\"db_version\"")
+                        if(res.rows.length)
+                            dbVersion = res.rows.item(0).value
                     }
                     )
+
+        //Отримання найновішої БД
+        var request = new XMLHttpRequest()
+        request.open("POST", "http://drupalhost.ca/nonogram_api.php", true)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.onreadystatechange = function(){
+            if(request.readyState === XMLHttpRequest.DONE){
+                if(request.status === 200){
+                    var requestRes = JSON.parse(request.responseText)
+
+                    //Видалення головоломок яких немає у новій версії БД
+                    db.transaction(
+                                function(tx){
+                                    var sqlRes = tx.executeSql("SELECT crossword_id FROM crosswords ORDER BY crossword_id")
+                                    var j = requestRes.data.length-1
+                                    for(var i=0;i<sqlRes.rows.length;i++){
+                                        if((sqlRes.rows.item(i).crossword_id<requestRes.data[j].id)||(j<0))
+                                            tx.executeSql("DELETE FROM crosswords WHERE crossword_id='"+sqlRes.rows.item(i).crossword_id+"'")
+                                        else if(sqlRes.rows.item(i).crossword_id==requestRes.data[j].id)
+                                            j--
+                                        else if(sqlRes.rows.item(i).crossword_id>requestRes.data[j].id){
+                                            tx.executeSql("INSERT INTO crosswords VALUES(?,?,?,?,?,?,?)",
+                                                          [requestRes.data[j].id, requestRes.data[j].width, requestRes.data[j].height,
+                                                           requestRes.data[j].crossword, "", 0, 0])
+                                            j--
+                                        }
+                                    }
+                                    for(;j>=0;j--)
+                                        tx.executeSql("INSERT INTO crosswords VALUES(?,?,?,?,?,?,?)",
+                                                      [requestRes.data[j].id, requestRes.data[j].width, requestRes.data[j].height,
+                                                       requestRes.data[j].crossword, "", 0, 0])
+                                    frontElement.updateListOfCrosswords()
+                                }
+                                )
+                } else {
+                    console.error("Не вдалося з'єднатися з віддаленою БД", request.status)
+                }
+            }
+        }
+        var params = "mode=import&db_version=0"
+        request.send(params)
     }
 }
