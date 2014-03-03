@@ -35,10 +35,15 @@ Window {
             id: frontElement
             anchors.fill: parent
             visible: parent.state == "front"
-            onButtonPlay: flipable.state = "back"
+            onBeginGame:{
+                backElement.init(crosswordId, crosswordStatus)
+                flipable.state = "back"
+            }
+
         }
 
         back: Back{
+            id: backElement
             anchors.fill: parent
             onGoFront: {
                 flipable.state = "front"
@@ -65,7 +70,7 @@ Window {
     }
 
     Component.onCompleted: {
-        var db = LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram Data Base", 10000000)
+        var db = getDB()
         if(!db) {
             console.error("Can not open DB!")
             Qt.quit()
@@ -129,5 +134,9 @@ Window {
         }
         var params = "mode=import&db_version=0"
         request.send(params)
+    }
+
+    function getDB(){
+        return LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram crossword Base", 10000000);
     }
 }

@@ -5,7 +5,7 @@ import QtQuick.LocalStorage 2.0
 Item {
     property bool isFullScreen: false
 
-    signal buttonPlay
+    signal beginGame(var crosswordId, var crosswordStatus)
 
     RowLayout{
         anchors.fill: parent
@@ -30,19 +30,24 @@ Item {
                             qsTr("Продовжити гру")
                         else qsTr("Переглянути розв'язок")
                     }
-                    onClicked: buttonPlay()
+                    onClicked: beginGame(listOfCrosswords.currentCrossword, listOfCrosswords.currentCrosswordStatus)
                 }
                 Button{
                     width: parent.width
                     height: 40
                     visible: (listOfCrosswords.currentCrosswordStatus == 1)||(listOfCrosswords.currentCrosswordStatus == 2)
                     text: qsTr("Розпочати заново")
+
+                    onClicked: beginGame(listOfCrosswords.currentCrossword, 0)
                 }
                 Button{
                     width: parent.width
                     height: 40
-                    visible: (listOfCrosswords.previousCrossword != -1)
+                    visible: informPanel.previousCrossword != -1
+
                     text: qsTr("Продовжити попередню гру")
+
+                    onClicked: beginGame(informPanel.previousCrossword, 1)
                 }
             }
 
@@ -108,7 +113,7 @@ Item {
 
             Component.onCompleted: {
                 //Отримання індексу поппереднього відкритого кросворду
-                var db = LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram Data Base", 10000000)
+                var db = mainWindow.getDB()
                 if(!db) {
                     console.error("Can not open DB!")
                     Qt.quit()
@@ -121,8 +126,10 @@ Item {
                                     previousCrossword = res.rows.item(0).value
                                     res = tx.executeSql("select status from crosswords where crossword_id='"+
                                                         previousCrossword.toString() + "'")
-                                    if(res.rows.length)
+                                    if(res.rows.length){
                                         if(res.rows.item(0).status != "1") previousCrossword = -1
+                                        previousCrossword = -1
+                                    }
                                 }
                             })
             }

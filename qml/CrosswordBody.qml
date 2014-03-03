@@ -8,12 +8,15 @@ Item {
     property int cellSpacing: 2
     property int contentX: flickable.contentX
     property int contentY: flickable.contentY
+    property bool canEdit: false
 
     // Стани комірок головоломки
     readonly property string stateDontKnow: "0"
     readonly property string stateYes: "1"
     readonly property string stateMaybe: "2"
     readonly property string stateNo: "3"
+
+    signal cellStateChanged(var i, var previousState, var currentState)
 
     width: 10
     height: 10
@@ -48,7 +51,9 @@ Item {
                 MouseArea{
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    visible: canEdit
                     onClicked: {
+                        var previousState = model.data
                         switch(mouse.button){
                         case Qt.RightButton:
                             switch(model.data){
@@ -74,6 +79,7 @@ Item {
                                 break
                             }
                         }
+                        cellStateChanged(model.index, previousState, model.data)
                     }
                 }
 

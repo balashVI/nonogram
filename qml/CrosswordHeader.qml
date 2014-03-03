@@ -11,6 +11,7 @@ Item {
     property string dataStr
     property int contentPosition: 0
     property int orientation: Qt.Vertical
+    property bool canEdit: false
 
     Flickable{
         anchors.fill: parent
@@ -43,6 +44,7 @@ Item {
                 }
                 MouseArea{
                     anchors.fill: parent
+                    visible: canEdit
                     onClicked: {
                         if(model.data!="")
                             parent.state = (parent.state=="Normal")?"CrossOut":"Normal"

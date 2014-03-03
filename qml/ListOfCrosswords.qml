@@ -107,7 +107,7 @@ Item{
 
     function updateContent(){
         listModel.clear()
-        var db = LocalStorage.openDatabaseSync("nonograDB", "1.0", "Nonogram Data Base", 10000000)
+        var db = mainWindow.getDB()
         if(!db) {
             console.error("Can not open DB!")
             Qt.quit()
