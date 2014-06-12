@@ -24,28 +24,29 @@ Item{
         id: background
         anchors.fill: parent
         color:"gray"
+        clip: true
 
         opacity: 0.3
 
         radius: thickness/2
-    }
 
-    Rectangle{
-        id: scroll
+        Rectangle{
+            id: scroll
 
-        property int widthVar : parent.width*obj.width/obj.contentWidth
-        property int heightVar : parent.height*obj.height/obj.contentHeight
+            property int widthVar : parent.width*obj.width/obj.contentWidth
+            property int heightVar : parent.height*obj.height/obj.contentHeight
 
-        width: isHorizontal ? (widthVar < 20 ? 20 : (widthVar > parent.width ? parent.width : widthVar)) : thickness
-        height: isHorizontal ? thickness : (heightVar < 20 ? 20 : (heightVar > parent.height ? parent.height : heightVar))
+            width: isHorizontal ? (widthVar < 20 ? 20 : (widthVar > parent.width ? parent.width : widthVar)) : thickness
+            height: isHorizontal ? thickness : (heightVar < 20 ? 20 : (heightVar > parent.height ? parent.height : heightVar))
 
-        y: isHorizontal ? 0 : obj.visibleArea.yPosition * parent.height
-        x: isHorizontal ? obj.visibleArea.xPosition * parent.width : 0
+            y: isHorizontal ? 0 : obj.visibleArea.yPosition * parent.height
+            x: isHorizontal ? obj.visibleArea.xPosition * parent.width : 0
 
-        color: "darkgray"
-        opacity: 0.9
+            color: "black"
+            opacity: 0.9
 
-        radius: thickness/2
+            radius: thickness/2
+        }
     }
 
     states: [

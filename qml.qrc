@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/main.qml</file>
+    </qresource>
+    <qresource prefix="/components">
+        <file alias="Back.qml">qml/components/Back.qml</file>
+        <file alias="Button.qml">qml/components/Button.qml</file>
+        <file alias="Constants.qml">qml/components/Constants.qml</file>
+        <file alias="CrosswordBody.qml">qml/components/CrosswordBody.qml</file>
+        <file alias="CrosswordHeader.qml">qml/components/CrosswordHeader.qml</file>
+        <file alias="Front.qml">qml/components/Front.qml</file>
+        <file alias="ListOfCrosswords.qml">qml/components/ListOfCrosswords.qml</file>
+        <file alias="Scroll.qml">qml/components/Scroll.qml</file>
+        <file alias="Slider.qml">qml/components/Slider.qml</file>
+    </qresource>
+    <qresource prefix="/templates">
+        <file alias="orange,qml">qml/templates/orange.qml</file>
+    </qresource>
+</RCC>

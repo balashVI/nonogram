@@ -141,6 +141,7 @@ Rectangle {
                         body.canEdit = false
                         leftHeader.canEdit = false
                         topHeader.canEdit = false
+                        timer.running = false
                     }
                 }
             }

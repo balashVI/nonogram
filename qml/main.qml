@@ -1,17 +1,18 @@
 import QtQuick 2.2
+import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtQuick.Window 2.0
 import QtQuick.LocalStorage 2.0
 
-import "qrc:/qml/"
+import "qrc:/components"
 
-Window {
+ApplicationWindow {
     id: mainWindow
     width: 1000
     height: 700
     minimumWidth: 1000
     minimumHeight: 700
-    title: "Nonogram"
+    visible: true
+    title: qsTr("Nonogram")
 
     property int dbVersion
     property bool isMaximize: false
